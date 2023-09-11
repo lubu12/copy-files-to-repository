@@ -1,8 +1,8 @@
 name: 'Copy files to another repository'
-description: 'Copy and push files from current repository to another repository.'
+description: 'Github Action to copy files or folders from workflow container or one repository into another one'
 inputs:
   source-files:
-    description: 'The files/directories to copy to the destination repository. Can have multiple space-separated filenames and globbing.'
+    description: 'The files/directories to copy to the destination repository. Can have multiple space-separated filenames and globbing'
     required: true
   destination-username:
     description: 'Name of the destination username/organization'
@@ -11,7 +11,7 @@ inputs:
     description: 'Name of the destination repository'
     required: true
   destination-branch:
-    description: '[Optional] set target branch name for the destination repository.'
+    description: '[Optional] set target branch name for the destination repository'
     default: 'master'
     required: false
   destination-directory:
@@ -29,6 +29,10 @@ inputs:
     description: '[Optional] commit message for the output repository. ORIGIN_COMMIT is replaced by the URL@commit in the origin repo'
     default: 'Update from ORIGIN_COMMIT'
     required: false
+  from-container:
+    description: '[Optional] Set true if the source files is from the workflow container'
+    default: 'true'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
@@ -41,6 +45,7 @@ runs:
     - ${{ inputs.commit-username }}
     - ${{ inputs.commit-email }}
     - ${{ inputs.commit-message }}
+    - ${{ inputs.from-container }}
 branding:
   icon: 'git-commit'
   color: 'green'

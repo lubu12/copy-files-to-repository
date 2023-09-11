@@ -13,6 +13,7 @@ DESTINATION_DIRECTORY="$5"
 COMMIT_USERNAME="$6"
 COMMIT_EMAIL="$7"
 COMMIT_MESSAGE="$8"
+FROM_CONTAINER="$9"
 
 if [ -z "$COMMIT_USERNAME" ]
 then
@@ -23,17 +24,23 @@ CLONE_DIRECTORY=$(mktemp -d)
 
 echo
 echo "##### Cloning source git repository #####"
+
 # Setup git
 git config --global user.email "$COMMIT_EMAIL"
-git config --global user.name "$DESTINATION_USERNAME"
+git config --global user.name "$COMMIT_USERNAME"
 
 # Remove git directory if it exists to prevent errors
 rm -rf .git
 
-git clone "https://github.com/$GITHUB_REPOSITORY.git" repo
+# If source files are not from workflow container, clone from source git repository
+if [ "true" -ne "$FROM_CONTAINER" ]
+then
+  echo
+  echo "##### Cloning source git repository #####"
 
-cd repo
-ls -la
+  git clone "https://github.com/$GITHUB_REPOSITORY.git" repo
+  cd repo
+fi
 
 echo
 echo "##### Cloning destination git repository #####"
@@ -43,6 +50,7 @@ ls -la "$CLONE_DIRECTORY"
 
 echo
 echo "##### Copying contents to git repo #####"
+
 mkdir -p "$CLONE_DIRECTORY/$DESTINATION_DIRECTORY"
 cp -rvf $SOURCE_FILES "$CLONE_DIRECTORY/$DESTINATION_DIRECTORY"
 cd "$CLONE_DIRECTORY"
