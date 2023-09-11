@@ -36,14 +36,14 @@ rm -rf .git
 if [ "true" -ne "$FROM_CONTAINER" ]
 then
   echo
-  echo "##### Cloning source git repository #####"
+  echo "##### Cloning source git repository - https://github.com/$GITHUB_REPOSITORY.git #####"
 
   git clone "https://github.com/$GITHUB_REPOSITORY.git" repo
   cd repo
 fi
 
 echo
-echo "##### Cloning destination git repository #####"
+echo "##### Cloning destination git repository - https://$API_TOKEN_GITHUB@github.com/$DESTINATION_USERNAME/$DESTINATION_REPOSITORY.git #####"
 
 git clone --single-branch --branch "$DESTINATION_BRANCH" "https://$API_TOKEN_GITHUB@github.com/$DESTINATION_USERNAME/$DESTINATION_REPOSITORY.git" "$CLONE_DIRECTORY"
 ls -la "$CLONE_DIRECTORY"
