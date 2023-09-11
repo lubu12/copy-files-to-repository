@@ -1,4 +1,4 @@
-name: 'Copy files to another repository'
+name: 'Copy files from workflow container or repository to another repository'
 description: 'Github Action to copy files or folders from workflow container or one repository into another one'
 inputs:
   source-files:
