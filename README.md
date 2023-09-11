@@ -53,15 +53,15 @@ Then make the token available to the Github Action following the steps:
 ## Example usage
 ```yaml
       - name: Copy files to another repository
-        uses: lub12/copy-files-to-repository
+        uses: lubu12/copy-files-to-repository
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source-files: 'webpage/'
-          destination-username: 'nkoppel'
-          destination-repository: 'nkoppel.github.io'
+          destination-username: 'lubu12'
+          destination-repository: 'lubu12.github.io'
           destination-directory: 'projects/my-project'
-          commit-email: 'nathankoppel0@gmail.com'
+          commit-email: 'lubu12@gmail.com'
 ```
 
 ## Acknowledgements
